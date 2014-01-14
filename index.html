@@ -20,8 +20,9 @@
 	h1 { font-weight: bold; letter-spacing: -1px; }
 	.blocky { height: 12px; width: 12px; margin-right: 6px; float: left; margin-top:4px; border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;}
 	th { cursor:pointer; cursor:hand; }
-	th:hover { background: #deebf7 }
+	th:hover { background: #e5f5e0 }
 	#countdown { color:#fff; font-size:60%; }
+    
 
     </style>
 
@@ -64,37 +65,76 @@
 	<div class="jumbotron green">
     <div class="container">
 			<h1>Candidate tracker</h1>
-			<p class="lead">Your one-stop shop for 2014 filing information<br/><span id="countdown"></span></p>
+			<p class="lead">Your one-stop shop for 2014 filing information in Douglas and Sarpy Counties<br/><span id="countdown"></span></p>
 			
 	</div>
 	</div>
 	
 	<div class="container" style="margin-bottom: 50px;">
 
-	
-	
-<label class="checkbox-inline">
-  <input type="checkbox" class="demcheck" checked> Democrats
+    <div class="row">
+    
+<div class="col-md-2">
+<div class="checkbox">
+<label>
+  <input type="checkbox" class="demcheck" checked><div class="blocky" style="background: #3182bd;"></div> Democrats
 </label>
-<label class="checkbox-inline">
-  <input type="checkbox" class="repcheck" checked> Republicans
+</div>
+<div class="checkbox">
+<label>
+  <input type="checkbox" class="repcheck" checked><div class="blocky" style="background: #de2d26;"></div> Republicans
 </label>
-<label class="checkbox-inline">
-  <input type="checkbox" class="othercheck" checked> Other
-</label>
+</div>
 
-<br/>
-<label class="radio-inline">
-  <input type="radio" name="incrads" class="radall" checked> All
+<div class="checkbox">
+<label>
+  <input type="checkbox" class="othercheck" checked><div class="blocky" style="background: #fe9929;"></div> Other
 </label>
-<label class="radio-inline">
-  <input type="radio" name="incrads" class="radinc"> Incumbents
-</label>
-<label class="radio-inline">
-  <input type="radio" name="incrads" class="radchal"> Challengers
-</label>
+</div>
+</div>
 
+<div class="col-md-2">
+<div class="checkbox">
+<label>
+  <input type="checkbox" class="sarpycheck" checked> Sarpy
+</label>
+</div>
 
+<div class="checkbox">
+<label>
+  <input type="checkbox" class="dougcheck" checked> Douglas
+</label>
+</div>
+
+<div class="checkbox">
+<label>
+  <input type="checkbox" class="statecheck" checked> Statewide
+</label>
+</div>
+
+</div>
+
+<div class="col-md-2">
+<div class="checkbox">
+<label>
+  <input type="checkbox" class="fedcheck" checked> Federal
+</label>
+</div>
+
+<div class="checkbox">
+<label>
+  <input type="checkbox" class="inccheck" checked> Incumbents
+</label>
+</div>
+
+<div class="checkbox">
+<label>
+  <input type="checkbox" class="chalcheck" checked> Challengers
+</label>
+</div>
+</div>
+
+</div><!-- end row -->
 	
 		<div id="candidates"></div>
 
@@ -124,6 +164,8 @@
 <option value="">-- County --</option>
 <option value="Sarpy">Sarpy</option>
 <option value="Douglas">Douglas</option>
+<option value="Statewide">Statewide</option>
+<option value="Federal">Federal</option>
 </select>
 <br/>
 
@@ -131,7 +173,7 @@
 
 <input type="text" name="entry.872767722" value="" id="entry_872767722" dir="auto" aria-label="district  " title="" class="form-control" placeholder="District"><br/>
 
-<input type="text" name="entry.1615347966" value="" class="form-control" id="entry_1615347966" dir="auto" aria-label="link  " title="" placeholder="Race URL"><br/>
+<input type="text" name="entry.1615347966" value="" class="form-control" id="entry_1615347966" dir="auto" aria-label="link  " title="" placeholder="Candidate URL"><br/>
 
 <input type="text" name="entry.644586483" value="" class="form-control" id="entry_644586483" dir="auto" aria-label="filing date  " title="" placeholder="Filing date in mm/dd/yyyy form"><br/>
 
@@ -235,13 +277,13 @@ var colblock = '';
             else if (party == "republican") 
                     { colblock = '#de2d26' }
             else if (party == "other")
-                    { colblock = '#756bb1' }
+                    { colblock = '#fe9929' }
                     
 table_content += [
-'<tr class="' + party + ' ' + incumbent + '"><td><span style="display:none;">' + last + '</span><div class="blocky" style="background:' + colblock + '"></div>' + name + '</td><td>' + race + '</td><td>' + district + '</td><td>' + county + '</td><td>' + filed + '</td></tr>'
+'<tr class="' + party + ' ' + incumbent + ' ' + county + '"><td><span style="display:none;">' + last + '</span><div class="blocky" style="background:' + colblock + '"></div>' + name + '</td><td>' + race + '</td><td>' + district + '</td><td>' + filed + '</td></tr>'
 ].join('');
                         
-document.getElementById('candidates').innerHTML = "<table id='reqqqs' class='table table-responsive table-striped'><thead><tr><th>Name</th><th>Race</th><th>District</th><th>County</th><th>Filed</th></thead><tbody>" + table_content + '</tbody></table>'
+document.getElementById('candidates').innerHTML = "<table id='reqqqs' class='table table-responsive table-striped'><thead><tr><th>Name</th><th>Race</th><th>District</th><th>Filed</th></thead><tbody>" + table_content + '</tbody></table>'
 
     } }
 
@@ -249,11 +291,8 @@ $('#adder').click(function() {
 setTimeout(function() {$('#entry_1252196491').focus()}, 500);
 });
 
-
 var target_date = new Date("Tue May 13 2014 08:00:00 GMT-0600").getTime();
-
-var days, hours, minutes, seconds;
- 
+var days, hours, minutes, seconds; 
 var countdown = document.getElementById("countdown");
  
 setInterval(function () {
@@ -293,25 +332,52 @@ $('.othercheck').click(function() {
     }
 });
 
-$(function(){
-$('.radall').change(
-    function(){
-        $(".true").fadeIn('slow');
-		$(".false").fadeIn('slow');
+$('.fedcheck').click(function() {
+    if( $('.fedcheck:checked').length > 0 ) {
+        $(".Federal").fadeIn('slow');
+    } else {
+        $(".Federal").fadeOut('slow');
     }
-);
-$('.radinc').change(
-    function(){
-        $(".true").fadeIn('slow');
-		$(".false").fadeOut('slow');
+});
+
+$('.statecheck').click(function() {
+    if( $('.statecheck:checked').length > 0 ) {
+        $(".Statewide").fadeIn('slow');
+    } else {
+        $(".Statewide").fadeOut('slow');
     }
-);
-$('.radchal').change(
-    function(){
+});
+
+$('.sarpcheck').click(function() {
+    if( $('.sarpcheck:checked').length > 0 ) {
+        $(".Sarpy").fadeIn('slow');
+    } else {
+        $(".Sarpy").fadeOut('slow');
+    }
+});
+
+$('.dougcheck').click(function() {
+    if( $('.dougcheck:checked').length > 0 ) {
+        $(".Douglas").fadeIn('slow');
+    } else {
+        $(".Douglas").fadeOut('slow');
+    }
+});
+
+$('.inccheck').click(function() {
+    if( $('.inccheck:checked').length > 0 ) {
+        $(".true").fadeIn('slow');
+    } else {
         $(".true").fadeOut('slow');
-		$(".false").fadeIn('slow');
     }
-);
+});
+
+$('.chalcheck').click(function() {
+    if( $('.chalcheck:checked').length > 0 ) {
+        $(".false").fadeIn('slow');
+    } else {
+        $(".false").fadeOut('slow');
+    }
 });
 
 </script>
