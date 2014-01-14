@@ -19,6 +19,8 @@
 	div.jumbotron p.lead { color: #ccc;}
 	h1 { font-weight: bold; letter-spacing: -1px; }
 	.blocky { height: 12px; width: 12px; margin-right: 6px; float: left; margin-top:4px; border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;}
+	th { cursor:pointer; cursor:hand; }
+	th:hover { background: #deebf7 }
 
 	
     </style>
@@ -99,7 +101,7 @@
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {location.reload()}"></iframe>    
 
-<form action="https://docs.google.com/forms/d/1mUxawh42VVFau-vrngi4Pj3xoEMtqUaHVRfjILEk6sY/formResponse" method="POST" id="thinger" target="hidden_iframe" role="form" onsubmit="Javascript: $('#entry').modal('hide'); setTimeout(function() {$('#thinger').find('input:text, input:password, input:file, select, textarea').val(''); $('#thinger').find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');}, 1000); setTimeout(function() {location.reload(true);}, 2500)">
+<form action="https://docs.google.com/forms/d/1mUxawh42VVFau-vrngi4Pj3xoEMtqUaHVRfjILEk6sY/formResponse" method="POST" id="thinger" target="hidden_iframe" role="form" onsubmit="Javascript: $('#cand').modal('hide'); setTimeout(function() {$('#thinger').find('input:text, input:password, input:file, select, textarea').val(''); $('#thinger').find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');}, 1000); setTimeout(function() {location.reload(true);}, 3500)">
 	
 <input type="text" name="entry.1252196491" value="" class="form-control" id="entry_1252196491" dir="auto" aria-label="last name  " title="" placeholder="Last name"><br/>
 
