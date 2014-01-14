@@ -21,8 +21,8 @@
 	.blocky { height: 12px; width: 12px; margin-right: 6px; float: left; margin-top:4px; border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;}
 	th { cursor:pointer; cursor:hand; }
 	th:hover { background: #deebf7 }
+	#countdown { color:#fff; font-size:60%; }
 
-	
     </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -64,7 +64,7 @@
 	<div class="jumbotron green">
     <div class="container">
 			<h1>Candidate tracker</h1>
-			<p class="lead">Your one-stop shop for 2014 filing information.<br/><span id="countdown"></span></p>
+			<p class="lead">Your one-stop shop for 2014 filing information<br/><span id="countdown"></span></p>
 			
 	</div>
 	</div>
@@ -82,6 +82,19 @@
 <label class="checkbox-inline">
   <input type="checkbox" class="othercheck" checked> Other
 </label>
+
+<br/>
+<label class="radio-inline">
+  <input type="radio" name="incrads" class="radall" checked> All
+</label>
+<label class="radio-inline">
+  <input type="radio" name="incrads" class="radinc"> Incumbents
+</label>
+<label class="radio-inline">
+  <input type="radio" name="incrads" class="radchal"> Challengers
+</label>
+
+
 	
 		<div id="candidates"></div>
 
@@ -210,7 +223,7 @@ var colblock = '';
             var district = json.feed.entry[i].gsx$district.$t;
             var race = json.feed.entry[i].gsx$race.$t
 			if (json.feed.entry[i].gsx$link.$t)
-				{ name = '<a href="' + json.feed.entry[i].gsx$link.$t + '">' + json.feed.entry[i].gsx$first.$t + ' ' + json.feed.entry[i].gsx$last.$t + '</a>' }
+				{ name = '<a href="' + json.feed.entry[i].gsx$link.$t + '" target="_blank">' + json.feed.entry[i].gsx$first.$t + ' ' + json.feed.entry[i].gsx$last.$t + '</a>' }
 			else
 				{ name = json.feed.entry[i].gsx$first.$t + ' ' + json.feed.entry[i].gsx$last.$t };
             var incumbent = json.feed.entry[i].gsx$incumbent.$t.toLowerCase();
@@ -225,7 +238,7 @@ var colblock = '';
                     { colblock = '#756bb1' }
                     
 table_content += [
-'<tr class="' + party + '"><td><span style="display:none;">' + last + '</span><div class="blocky" style="background:' + colblock + '"></div>' + name + '</td><td>' + race + '</td><td>' + district + '</td><td>' + county + '</td><td>' + filed + '</td></tr>'
+'<tr class="' + party + ' ' + incumbent + '"><td><span style="display:none;">' + last + '</span><div class="blocky" style="background:' + colblock + '"></div>' + name + '</td><td>' + race + '</td><td>' + district + '</td><td>' + county + '</td><td>' + filed + '</td></tr>'
 ].join('');
                         
 document.getElementById('candidates').innerHTML = "<table id='reqqqs' class='table table-responsive table-striped'><thead><tr><th>Name</th><th>Race</th><th>District</th><th>County</th><th>Filed</th></thead><tbody>" + table_content + '</tbody></table>'
@@ -278,6 +291,27 @@ $('.othercheck').click(function() {
     } else {
         $(".other").fadeOut('slow');
     }
+});
+
+$(function(){
+$('.radall').change(
+    function(){
+        $(".true").fadeIn('slow');
+		$(".false").fadeIn('slow');
+    }
+);
+$('.radinc').change(
+    function(){
+        $(".true").fadeIn('slow');
+		$(".false").fadeOut('slow');
+    }
+);
+$('.radchal').change(
+    function(){
+        $(".true").fadeOut('slow');
+		$(".false").fadeIn('slow');
+    }
+);
 });
 
 </script>
