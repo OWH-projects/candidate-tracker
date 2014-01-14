@@ -18,6 +18,8 @@
 	div.jumbotron {margin-top: 2.3em;}
 	div.jumbotron p.lead { color: #ccc;}
 	h1 { font-weight: bold; letter-spacing: -1px; }
+	.blocky { height: 12px; width: 12px; margin-right: 6px; float: left; margin-top:4px; border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;}
+
 	
     </style>
 
@@ -204,24 +206,24 @@ var colblock = '';
             var mugurl = json.feed.entry[i].gsx$mugurl.$t;
             var bio = json.feed.entry[i].gsx$bio.$t;
             var district = json.feed.entry[i].gsx$district.$t;
-            var race = ''
+            var race = json.feed.entry[i].gsx$race.$t
 			if (json.feed.entry[i].gsx$link.$t)
-				{ race = '<a href="' + json.feed.entry[i].gsx$link.$t + '">' + json.feed.entry[i].gsx$race.$t + '</a>' }
+				{ name = '<a href="' + json.feed.entry[i].gsx$link.$t + '">' + json.feed.entry[i].gsx$first.$t + ' ' + json.feed.entry[i].gsx$last.$t + '</a>' }
 			else
-				{ race = json.feed.entry[i].gsx$race.$t };
+				{ name = json.feed.entry[i].gsx$first.$t + ' ' + json.feed.entry[i].gsx$last.$t };
             var incumbent = json.feed.entry[i].gsx$incumbent.$t.toLowerCase();
 			var party = json.feed.entry[i].gsx$party.$t;
 			var filed = json.feed.entry[i].gsx$filed.$t.replace("'","");
 
             if (party == "democrat") 
-                    { colblock = 'primary' }
+                    { colblock = '#3182bd' }
             else if (party == "republican") 
-                    { colblock = 'danger' }
+                    { colblock = '#de2d26' }
             else if (party == "other")
-                    { colblock = 'warning' }
+                    { colblock = '#756bb1' }
                     
 table_content += [
-'<tr class="' + party + '"><td><span style="display:none;">' + last + '</span><span class="label label-' + colblock + '"> ' + first + " " + last + '</span></td><td>' + race + '</td><td>' + district + '</td><td>' + county + '</td><td>' + filed + '</td></tr>'
+'<tr class="' + party + '"><td><span style="display:none;">' + last + '</span><div class="blocky" style="background:' + colblock + '"></div>' + name + '</td><td>' + race + '</td><td>' + district + '</td><td>' + county + '</td><td>' + filed + '</td></tr>'
 ].join('');
                         
 document.getElementById('candidates').innerHTML = "<table id='reqqqs' class='table table-responsive table-striped'><thead><tr><th>Name</th><th>Race</th><th>District</th><th>County</th><th>Filed</th></thead><tbody>" + table_content + '</tbody></table>'
