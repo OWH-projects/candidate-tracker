@@ -65,7 +65,7 @@
 	<div class="jumbotron green">
     <div class="container">
 			<h1>Candidate tracker 2014</h1>
-			<p class="lead">Your one-stop shop for Douglas and Sarpy filing info<br/><span id="last_updated"></span> <span class="glyphicon glyphicon-time"></span> <span id="countdown"></span></p>
+			<p class="lead">Your one-stop shop for Douglas and Sarpy filings<br/><span id="last_updated"></span> <span class="glyphicon glyphicon-time"></span> <span id="countdown"></span></p>
 			
 	</div>
 	</div>
@@ -283,10 +283,10 @@ var dates = [];
                     { colblock = '#fe9929' }
                     
 table_content += [
-'<tr class="' + party + ' ' + incumbent + ' ' + county + '"><td><span style="display:none;">' + last + '</span><div class="blocky" style="background:' + colblock + '"></div>' + name + '</td><td>' + race + '</td><td>' + district + '</td><td>' + filed + '</td></tr>'
+'<tr class="' + party + ' ' + incumbent + ' ' + county + '"><td><span style="display:none;">' + last + '</span><div class="blocky" style="background:' + colblock + '"></div>' + name + '</td><td>' + race + '</td><td>' + district + '</td><td>' + county + '</td><td>' + filed + '</td></tr>'
 ].join('');
                         
-document.getElementById('candidates').innerHTML = "<table id='reqqqs' class='table table-responsive table-striped'><thead><tr><th>Name</th><th>Race</th><th>District</th><th>Filed</th></thead><tbody>" + table_content + '</tbody></table>'
+document.getElementById('candidates').innerHTML = "<table id='reqqqs' class='table table-responsive table-striped'><thead><tr><th>Name</th><th>Race</th><th>District</th><th>Where</th><th>Filed</th></thead><tbody>" + table_content + '</tbody></table>'
 
 var maxDate = new Date(Math.max.apply(null,dates));
 
