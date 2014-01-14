@@ -21,7 +21,7 @@
 	.blocky { height: 12px; width: 12px; margin-right: 6px; float: left; margin-top:4px; border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;}
 	th { cursor:pointer; cursor:hand; }
 	th:hover { background: #e5f5e0 }
-	#countdown { color:#fff; font-size:60%; }
+	#countdown, #last_updated, .glyphicon-time { color:#fff; font-size:60%; }
     
 
     </style>
@@ -65,7 +65,7 @@
 	<div class="jumbotron green">
     <div class="container">
 			<h1>Candidate tracker</h1>
-			<p class="lead">Your one-stop shop for 2014 filing information in Douglas and Sarpy Counties<br/><span id="countdown"></span></p>
+			<p class="lead">Your one-stop shop for 2014 filing information in Douglas and Sarpy Counties<br/><span id="last_updated"></span> <span class="glyphicon glyphicon-time"></span> <span id="countdown"></span></p>
 			
 	</div>
 	</div>
@@ -252,6 +252,7 @@
 
         <script>
 var colblock = '';
+var dates = [];
 
         function displayContent(json) {
             var table_content='';
@@ -271,6 +272,8 @@ var colblock = '';
             var incumbent = json.feed.entry[i].gsx$incumbent.$t.toLowerCase();
 			var party = json.feed.entry[i].gsx$party.$t;
 			var filed = json.feed.entry[i].gsx$filed.$t.replace("'","");
+			var timestamp = new Date(json.feed.entry[i].gsx$timestamp.$t);
+            dates.push(timestamp);
 
             if (party == "democrat") 
                     { colblock = '#3182bd' }
@@ -284,6 +287,14 @@ table_content += [
 ].join('');
                         
 document.getElementById('candidates').innerHTML = "<table id='reqqqs' class='table table-responsive table-striped'><thead><tr><th>Name</th><th>Race</th><th>District</th><th>Filed</th></thead><tbody>" + table_content + '</tbody></table>'
+
+var maxDate = new Date(Math.max.apply(null,dates));
+
+var apmonths = ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."]
+
+var day = maxDate.getDate(); 
+
+document.getElementById('last_updated').innerHTML = "Last updated " + apmonths[maxDate.getMonth()] + " " + day
 
     } }
 
